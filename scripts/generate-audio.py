@@ -1,5 +1,5 @@
 """Regenerate bundled Mandarin narration on macOS with the installed Tingting voice."""
-import json, pathlib, subprocess, tempfile
+import json, pathlib, subprocess, tempfile, argparse
 root=pathlib.Path(__file__).resolve().parents[1]
 texts={
 'cat':'你好，小猫。小猫有尖尖的耳朵，轻轻地叫，喵，喵。','dog':'你好，小狗。小狗摇摇尾巴，开心地叫，汪，汪。','cow':'你好，奶牛。奶牛穿着黑白花衣服，慢慢地叫，哞。','rabbit':'你好，小兔。小兔有长长的耳朵，蹦蹦跳跳真可爱。',
@@ -11,10 +11,24 @@ texts={
 'story-3':'爬上小山坡。小兔爬上软软的小山坡。月亮还是那么远，却一直陪着它。你在等我呀。小兔笑了。',
 'story-4':'月亮陪我回家。晚风轻轻吹。小兔往家走，月亮也慢慢走。原来，不用摘下月亮，也能和它做朋友。',
 'story-5':'晚安，小兔。小兔钻进暖暖的被窝。月光落在窗边，像一条柔软的小毯子。晚安，月亮。明天见。'}
+texts.update({
+'color-red':'你好，红色。这是红色。红色的气球，像红红的草莓。',
+'color-yellow':'你好，黄色。这是黄色。黄色的气球，像黄黄的香蕉。',
+'color-blue':'你好，蓝色。这是蓝色。蓝色的气球，像蓝蓝的天空。',
+'q-color-red':'哪个气球是红色的？点一点吧。',
+'q-color-yellow':'哪个气球是黄色的？点一点吧。',
+'q-color-blue':'哪个气球是蓝色的？点一点吧。',
+})
+parser=argparse.ArgumentParser()
+parser.add_argument('names',nargs='*',help='Only regenerate these audio IDs; omit to regenerate all.')
+selected=parser.parse_args().names
+unknown=set(selected)-texts.keys()-{'bedtime'}
+if unknown: parser.error('Unknown audio IDs: '+', '.join(sorted(unknown)))
 texts['bedtime']='小兔找月亮。[[slnc 1500]]'+ '。[[slnc 1800]]'.join(texts['story-'+str(i)] for i in range(1,6))+'。[[slnc 2000]]晚安。'
 (root/'public/audio/transcripts.json').write_text(json.dumps(texts,ensure_ascii=False,indent=2))
 with tempfile.TemporaryDirectory() as temp:
  for name,text in texts.items():
+  if selected and name not in selected: continue
   raw=str(pathlib.Path(temp)/'voice.aiff')
   subprocess.run(['say','-v','Tingting','-r','135' if name=='bedtime' else '165','-o',raw,text],check=True)
   subprocess.run(['afconvert','-f','m4af','-d','aac@44100','-b','96000',raw,str(root/'public/audio'/f'{name}.m4a')],check=True)
