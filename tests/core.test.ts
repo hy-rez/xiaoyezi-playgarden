@@ -17,3 +17,13 @@ import {createElement} from 'react';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {Art} from '../src/Art';
 describe('动物插画渲染',()=>{it('50种动物重复展示时标识独立、滤镜引用有效、名称完整',()=>{const all=[...animalNames,...animalNames];const markup=renderToStaticMarkup(createElement('div',null,...all.map((name,i)=>createElement(Art,{key:i,name}))));const ids=[...markup.matchAll(/<filter id="([^"]+)"/g)].map(m=>m[1]);expect(ids).toHaveLength(100);expect(new Set(ids).size).toBe(100);for(const id of ids)expect(markup).toContain('url(#'+id+')');expect([...markup.matchAll(/<svg[^>]*aria-label="[^"]+"/g)]).toHaveLength(100);const clips=[...markup.matchAll(/<clipPath id="([^"]+)"/g)].map(m=>m[1]);expect(clips).toHaveLength(4);expect(new Set(clips).size).toBe(4);for(const id of clips)expect(markup).toContain('url(#'+id+')');expect(markup).not.toMatch(/NaN|undefined/);})});
+
+import soundLesson from '../src/courses/animal-sounds';
+describe('听声音猜动物',()=>{
+ it('独立入口覆盖50种真实叫声，图片答案与录音匹配且题干不泄露答案',async()=>{
+  const entry=courses.find(c=>c.id==='animal-sounds');expect(entry?.category).toBe('常识认知');expect((await entry!.load()).default).toBe(soundLesson);
+  expect(soundLesson.mode).toBe('sound-quiz');expect(soundLesson.pages).toEqual([]);expect(soundLesson.quizSize).toBe(3);expect(soundLesson.questions).toHaveLength(50);
+  expect(new Set(soundLesson.questions.map(q=>q.audio))).toEqual(new Set(animalNames.map(id=>'call-'+id)));
+  for(const q of soundLesson.questions){expect(q.options).toHaveLength(2);expect(q.options[0].art).not.toBe(q.options[1].art);expect(q.audio).toBe('call-'+q.options[q.answer].art);expect(q.prompt).not.toContain(q.options[q.answer].label);expect(existsSync('public/audio/'+q.audio+'.m4a')).toBe(true)}
+ });
+});
