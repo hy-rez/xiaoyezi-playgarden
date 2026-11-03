@@ -4,9 +4,10 @@ The reviewed recipe lives in public/audio/animal-calls/sources.json; no syntheti
 """
 import argparse,array,hashlib,html,json,math,pathlib,subprocess,tempfile,wave
 root=pathlib.Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('--sources-dir',type=pathlib.Path,required=True);p.add_argument('--ffmpeg',default='ffmpeg');args=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--sources-dir',type=pathlib.Path,required=True);p.add_argument('--ffmpeg',default='ffmpeg');p.add_argument('--ids',nargs='*');args=p.parse_args()
 folder=root/'public/audio/animal-calls';manifest=json.loads((folder/'sources.json').read_text())
 for item in manifest:
+ if args.ids and item['id'] not in args.ids: continue
  source=args.sources_dir/item['inputFile'];target=root/'public/audio'/('call-'+item['id']+'.m4a')
  with tempfile.TemporaryDirectory() as tmp:
   decoded=pathlib.Path(tmp)/'decoded.wav'

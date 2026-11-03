@@ -1,5 +1,6 @@
+import {ExtraAnimalArt,extraAnimalNames,type ExtraAnimalName} from './ExtraAnimalArt';
 // Each animal keeps its own silhouette and identifying anatomy at thumbnail size.
-export const animalNames = ['cat','dog','cow','rabbit','sheep','pig','horse','duck','chicken','goose','panda','bear','elephant','giraffe','lion','tiger','monkey','zebra','penguin','turtle'] as const;
+export const animalNames = ['cat','dog','cow','rabbit','sheep','pig','horse','duck','chicken','goose','panda','bear','elephant','giraffe','lion','tiger','monkey','zebra','penguin','turtle',...extraAnimalNames] as const;
 export type AnimalName = typeof animalNames[number];
 const ink='#3c493f',cream='#fff5df',orange='#dca065',dark='#4c514d',pink='#e4afa5';
 function Eyes({y=140,spread=24}:{y?:number;spread?:number}){return <g fill={ink}><circle cx={200-spread} cy={y} r="5"/><circle cx={200+spread} cy={y} r="5"/></g>}
@@ -23,6 +24,7 @@ case 'lion':drawing=<><path d="M247 230 Q301 254 291 195" stroke="#c59655" strok
 case 'monkey':drawing=<><path d="M253 232 C331 277 340 164 294 182 C276 192 293 218 304 203" stroke="#a17a57" strokeWidth="14" fill="none" strokeLinecap="round"/><ellipse cx="200" cy="218" rx="49" ry="45" fill="#a17a57"/><ellipse cx="200" cy="222" rx="29" ry="32" fill="#e8c49a"/><circle cx="132" cy="140" r="29" fill="#a17a57"/><circle cx="268" cy="140" r="29" fill="#a17a57"/><circle cx="132" cy="140" r="17" fill="#e8c49a"/><circle cx="268" cy="140" r="17" fill="#e8c49a"/><circle cx="200" cy="139" r="64" fill="#a17a57"/><path d="M200 115 C161 77 134 150 160 177 Q200 212 240 177 C266 150 239 77 200 115Z" fill="#e8c49a"/><Eyes y={140}/><ellipse cx="200" cy="162" rx="9" ry="6" fill="#88644b"/><Smile y={174}/><Paws fill="#a17a57"/></>;break;
 case 'penguin':drawing=<><ellipse cx="200" cy="257" rx="68" ry="13" fill="#d5a354"/><path d="M153 166 Q104 191 132 238 L167 207 M247 166 Q296 191 268 238 L233 207" fill={dark}/><ellipse cx="200" cy="183" rx="62" ry="79" fill={dark}/><circle cx="200" cy="120" r="48" fill={dark}/><ellipse cx="200" cy="198" rx="43" ry="54" fill={cream}/><ellipse cx="182" cy="133" rx="22" ry="30" fill={cream}/><ellipse cx="218" cy="133" rx="22" ry="30" fill={cream}/><Eyes y={128} spread={20}/><path d="M184 146 L200 161 216 146 200 139Z" fill="#dba550"/></>;break;
 case 'turtle':drawing=<><ellipse cx="200" cy="244" rx="95" ry="22" fill="#9dae78"/><ellipse cx="147" cy="252" rx="17" ry="14" fill="#9dae78"/><ellipse cx="221" cy="252" rx="17" ry="14" fill="#9dae78"/><path d="M135 216 Q140 132 205 150 Q257 162 260 222Z" fill="#74936c" stroke="#56744e" strokeWidth="4"/><path d="M179 158 L171 190 198 215 229 189 219 157 M171 190 L139 196 M229 189 L253 195 M198 215 V228" stroke="#a9bd8c" strokeWidth="4" fill="none"/><path d="M255 226 Q265 181 291 193 Q324 212 302 236 L255 244" fill="#9dae78"/><circle cx="294" cy="209" r="5" fill={ink}/><path d="M298 227 L310 224" stroke={ink} strokeWidth="2"/><path d="M132 229 L110 239 139 242" fill="#9dae78"/></>;break;
+default:drawing=<ExtraAnimalArt name={name as ExtraAnimalName}/>;
 }
 return <g className="character" stroke="#8e927f" strokeWidth="1.2" strokeLinejoin="round">{drawing}</g>;
 }
