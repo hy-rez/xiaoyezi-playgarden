@@ -1,5 +1,6 @@
 """Regenerate bundled Mandarin narration on macOS with the installed Tingting voice."""
 import json, pathlib, subprocess, tempfile, argparse
+from audio_effects import render_feedback
 root=pathlib.Path(__file__).resolve().parents[1]
 texts={
 'cat':'你好，小猫。小猫有尖尖的耳朵，轻轻地叫，喵，喵。','dog':'你好，小狗。小狗摇摇尾巴，开心地叫，汪，汪。','cow':'你好，奶牛。奶牛穿着黑白花衣服，慢慢地叫，哞。','rabbit':'你好，小兔。小兔有长长的耳朵，蹦蹦跳跳真可爱。',
@@ -19,6 +20,8 @@ texts.update({
 'q-color-yellow':'哪个气球是黄色的？点一点吧。',
 'q-color-blue':'哪个气球是蓝色的？点一点吧。',
 })
+texts.update(json.loads((root/'scripts/animal-narration.json').read_text()))
+texts['correct']='太棒了！你找到了！'
 parser=argparse.ArgumentParser()
 parser.add_argument('names',nargs='*',help='Only regenerate these audio IDs; omit to regenerate all.')
 selected=parser.parse_args().names
@@ -31,5 +34,8 @@ with tempfile.TemporaryDirectory() as temp:
   if selected and name not in selected: continue
   raw=str(pathlib.Path(temp)/'voice.aiff')
   subprocess.run(['say','-v','Tingting','-r','135' if name=='bedtime' else '165','-o',raw,text],check=True)
-  subprocess.run(['afconvert','-f','m4af','-d','aac@44100','-b','96000',raw,str(root/'public/audio'/f'{name}.m4a')],check=True)
+  if name in ('correct','retry'):
+   render_feedback(raw,root/'public/audio'/f'{name}.m4a',name)
+  else:
+   subprocess.run(['afconvert','-f','m4af','-d','aac@44100','-b','96000',raw,str(root/'public/audio'/f'{name}.m4a')],check=True)
   print(name,flush=True)

@@ -1,0 +1,23 @@
+import type {AnimalName} from '../../AnimalArt';
+export const animals:{id:AnimalName;name:string;text:string}[]=[
+{id:'cat',name:'小猫',text:'小猫有尖尖的耳朵、细细的胡须，还有一条长尾巴。喵，喵。'},
+{id:'dog',name:'小狗',text:'小狗有灵敏的鼻子，开心的时候会摇尾巴。汪，汪。'},
+{id:'cow',name:'奶牛',text:'奶牛有牛角和大鼻子，身上穿着黑白花衣服。哞。'},
+{id:'rabbit',name:'小兔',text:'小兔有长长的耳朵，嘴巴中间分成两瓣，还有两颗大门牙。'},
+{id:'sheep',name:'绵羊',text:'绵羊身上有卷卷的羊毛，像一团软软的棉花。咩，咩。'},
+{id:'pig',name:'小猪',text:'小猪有圆圆的鼻子，上面有两个鼻孔，尾巴卷卷的。'},
+{id:'horse',name:'小马',text:'小马有长长的脸，脖子后面有鬃毛，跑起来哒哒哒。'},
+{id:'duck',name:'小鸭',text:'小鸭有扁扁的嘴巴，脚上有脚蹼，游泳真拿手。嘎，嘎。'},
+{id:'chicken',name:'公鸡',text:'公鸡头上有红红的鸡冠，嘴巴尖尖的。喔，喔。'},
+{id:'goose',name:'大白鹅',text:'大白鹅的脖子长长的，羽毛白白的，也会在水里游泳。'},
+{id:'panda',name:'熊猫',text:'熊猫有黑黑的耳朵和眼圈，身体胖乎乎，喜欢吃竹子。'},
+{id:'bear',name:'小熊',text:'小熊有圆圆的耳朵、厚厚的毛，爪子宽宽的。'},
+{id:'elephant',name:'大象',text:'大象有大大的耳朵和长长的鼻子，可以用鼻子卷起东西。'},
+{id:'giraffe',name:'长颈鹿',text:'长颈鹿的脖子特别长，身上有一块块斑纹，能吃到高处的树叶。'},
+{id:'lion',name:'狮子',text:'这是一头雄狮。它的头周围有一圈浓密的鬃毛，像戴着大围巾。'},
+{id:'tiger',name:'老虎',text:'老虎有橙黄色的毛，身上有黑黑的条纹，尾巴长长的。'},
+{id:'monkey',name:'猴子',text:'猴子有灵巧的手和长长的尾巴，喜欢在树上攀爬。'},
+{id:'zebra',name:'斑马',text:'斑马长得像马，身上有一条条黑白条纹。'},
+{id:'penguin',name:'企鹅',text:'企鹅背上黑黑的，肚子白白的，翅膀像小桨，游泳很快。'},
+{id:'turtle',name:'乌龟',text:'乌龟背上有硬硬的壳，走起路来慢慢的。'},
+];

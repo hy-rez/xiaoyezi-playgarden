@@ -3,3 +3,5 @@ dist/
 .taste-skill/
 *.tsbuildinfo
 .DS_Store
+
+__pycache__/
