@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';import {courses} from '../src/courses/registry';import {award,timerExpired} from '../src/storage';import {existsSync} from 'node:fs';
-describe('课程内容与接入',()=>{it('四类课程完整、ID唯一、音频存在',async()=>{expect(new Set(courses.map(c=>c.id)).size).toBe(courses.length);expect(new Set(courses.map(c=>c.category)).size).toBe(4);for(const c of courses){const {default:l}=await c.load();const audios=l.kind==='bedtime'?[l.audio]:[...l.pages.map(p=>p.audio),...(l.kind==='interactive'?l.questions.map(q=>q.audio):[])];for(const a of audios)expect(existsSync('public/audio/'+a+'.m4a'),a).toBe(true);if(l.kind==='interactive'){expect(l.quizSize??l.questions.length).toBe(c.id==='colors'?6:3);for(const q of l.questions){expect(q.options).toHaveLength(2);expect(q.answer>=0&&q.answer<q.options.length).toBe(true)}}}})});
+describe('课程内容与接入',()=>{it('四类课程完整、ID唯一、音频存在',async()=>{expect(new Set(courses.map(c=>c.id)).size).toBe(courses.length);expect(new Set(courses.map(c=>c.category)).size).toBe(4);for(const c of courses){const {default:l}=await c.load();const audios=l.kind==='bedtime'?[l.audio]:[...l.pages.map(p=>p.audio),...(l.kind==='interactive'?l.questions.map(q=>q.audio):[])];for(const a of audios)expect(existsSync('public/audio/'+a+'.m4a'),a).toBe(true);if(l.kind==='interactive'){expect(l.quizSize??l.questions.length).toBe(['animals','colors','encyclopedia'].includes(c.id)?6:3);for(const q of l.questions){expect(q.options).toHaveLength(2);expect(q.answer>=0&&q.answer<q.options.length).toBe(true)}}}})});
 describe('贴纸与定时停止',()=>{it('重复完成不会累计',()=>{const initial=['animals'];expect(award(initial,'animals')).toEqual(['animals']);expect(award(initial,'tidy')).toEqual(['animals','tidy']);expect(initial).toEqual(['animals'])});it('截止前继续，截止或恢复后台后停止，关闭时不限时',()=>{expect(timerExpired(1000,999)).toBe(false);expect(timerExpired(1000,1000)).toBe(true);expect(timerExpired(1000,9000)).toBe(true);expect(timerExpired(null,9000)).toBe(false)})});
 
 import colorLesson from '../src/courses/colors';
@@ -60,7 +60,7 @@ describe('认识颜色',()=>{
 import animalLesson from '../src/courses/animals';
 import {animalNames} from '../src/AnimalArt';
 import {sampleQuestions} from '../src/quiz';
-describe('动物课程',()=>{it('50种动物均有介绍、插画和对应测试',()=>{expect(animalLesson.pages).toHaveLength(50);expect(new Set(animalLesson.pages.map(p=>p.art)).size).toBe(50);expect(new Set(animalLesson.pages.map(p=>p.art))).toEqual(new Set(animalNames));expect(animalLesson.questions).toHaveLength(50);animalLesson.questions.forEach((q,i)=>expect(q.options[q.answer].art).toBe(animalLesson.pages[i].art))});it('每轮抽取三道不重复题目，不修改题库',()=>{const before=[...animalLesson.questions];const sample=sampleQuestions(before,3,()=>0.5);expect(sample).toHaveLength(3);expect(new Set(sample.map(q=>q.audio)).size).toBe(3);expect(before).toEqual(animalLesson.questions);expect(sampleQuestions(before,99)).toHaveLength(50)})});
+describe('动物课程',()=>{it('50种动物均有介绍、插画和对应测试',()=>{expect(animalLesson.pages).toHaveLength(50);expect(new Set(animalLesson.pages.map(p=>p.art)).size).toBe(50);expect(new Set(animalLesson.pages.map(p=>p.art))).toEqual(new Set(animalNames));expect(animalLesson.questions).toHaveLength(50);animalLesson.questions.forEach((q,i)=>expect(q.options[q.answer].art).toBe(animalLesson.pages[i].art))});it('每轮抽取六道不重复题目，不修改题库',()=>{const before=[...animalLesson.questions];const sample=sampleQuestions(before,animalLesson.quizSize,()=>0.5);expect(sample).toHaveLength(6);expect(new Set(sample.map(q=>q.audio)).size).toBe(6);expect(before).toEqual(animalLesson.questions);expect(sampleQuestions(before,99)).toHaveLength(50)})});
 
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
@@ -78,5 +78,45 @@ describe('听声音猜动物',()=>{
   expect(soundLesson.mode).toBe('sound-quiz');expect(soundLesson.pages).toEqual([]);expect(soundLesson.quizSize).toBe(3);expect(soundLesson.questions).toHaveLength(50);
   expect(new Set(soundLesson.questions.map(q=>q.audio))).toEqual(new Set(animalNames.map(id=>'call-'+id)));
   for(const q of soundLesson.questions){expect(q.options).toHaveLength(2);expect(q.options[0].art).not.toBe(q.options[1].art);expect(q.audio).toBe('call-'+q.options[q.answer].art);expect(q.prompt).not.toContain(q.options[q.answer].label);expect(existsSync('public/audio/'+q.audio+'.m4a')).toBe(true)}
+ });
+});
+
+import encyclopediaLesson from '../src/courses/encyclopedia';
+import {encyclopedia} from '../src/courses/encyclopedia/catalog';
+describe('认识百科',()=>{
+ it('真实照片、来源许可、中文语音和题目一一对应',async()=>{
+  const entry=courses.find(c=>c.id==='encyclopedia')!;
+  expect(entry.category).toBe('常识认知');
+  expect((await entry.load()).default).toBe(encyclopediaLesson);
+  const sources=JSON.parse(readFileSync('public/images/encyclopedia/sources.json','utf8'));
+  const transcripts=JSON.parse(readFileSync('public/audio/transcripts.json','utf8'));
+  expect(encyclopediaLesson.pages).toHaveLength(50);
+  expect(sources).toHaveLength(50);
+  expect(new Set(sources.map((s:{sha256:string})=>s.sha256)).size).toBe(50);
+  expect(encyclopediaLesson.questions).toHaveLength(50);
+  expect(new Set(encyclopediaLesson.pages.map(p=>p.art)).size).toBe(50);
+  expect(new Set(sources.map((s:{id:string})=>s.id))).toEqual(new Set(encyclopedia.map(p=>p.id)));
+  for(const [i,page] of encyclopediaLesson.pages.entries()){
+   const item=encyclopedia[i];
+   const source=sources.find((s:{id:string})=>s.id===item.id);
+   const data=readFileSync('public/images/encyclopedia/'+source.file);
+   expect(data.subarray(0,3).toString('hex')).toBe('ffd8ff');
+   expect(createHash('sha256').update(data).digest('hex')).toBe(source.sha256);
+   expect(Boolean(source.creator)||source.licenseCode==='pd'||source.licenseCode==='cc0').toBe(true);
+   expect(source.page).toMatch(/^https:\/\/commons.wikimedia.org\/wiki\/File:/);
+   expect(source.licenseUrl).toMatch(/^https:\/\/creativecommons.org\//);
+   expect(transcripts[page.audio]).toContain(page.text);
+   const question=encyclopediaLesson.questions[i];
+   expect(question.options[question.answer].art).toBe(page.art);
+   expect(question.options[0].art).not.toBe(question.options[1].art);
+   expect(transcripts[question.audio]).toContain(question.prompt);
+   const markup=renderToStaticMarkup(createElement(Art,{name:page.art}));
+   expect(markup).toContain(item.id+'.jpg');
+   expect(markup).toContain('alt="'+item.name+'的真实照片"');
+   expect(markup).not.toContain('<svg');
+  }
+  const round=sampleQuestions(encyclopediaLesson.questions,encyclopediaLesson.quizSize);
+  expect(round).toHaveLength(6);
+  expect(new Set(round.map(q=>q.audio)).size).toBe(6);
  });
 });

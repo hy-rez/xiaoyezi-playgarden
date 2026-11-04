@@ -12,3 +12,22 @@
 .color-course .choices button:disabled{opacity:1;cursor:default}
 .color-library section{margin:32px auto}.color-library h2{font-size:22px}.color-library .animal-picker{margin-top:14px}
 .lesson-back{display:flex;justify-content:flex-start;margin:0 0 16px}.lesson-back button,.lesson-back a.button{background:transparent;padding:10px 12px;min-height:56px;font-size:16px}.lesson-back button:hover,.lesson-back a.button:hover{background:#e3e7d7}.sleep .lesson-back a.button,.sleep .lesson-back button{background:transparent}.sleep .lesson-back button:hover,.sleep .lesson-back a.button:hover{background:#3a4c54}
+
+/* Keep complete photographic subjects visible in every reusable card size. */
+.photo-art{position:relative;min-width:0;min-height:0;aspect-ratio:4/3;overflow:hidden;border-radius:14px;background:#e5ebdf;display:flex;align-items:center;justify-content:center}
+.photo-art img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.cover .photo-art{border-radius:0}
+.cover:has(.photo-art) .course-kind{background:#f0efe4;padding:4px 10px;border-radius:8px}
+.animal-picker .photo-art{margin:4px auto 7px}
+.photo-error{font-size:14px;padding:10px;text-align:center}
+.sticker .photo-art{border-radius:50%}
+
+.encyclopedia-course .animal-picker{grid-template-columns:repeat(4,minmax(0,1fr))}
+.encyclopedia-course .choices button:disabled{opacity:1}
+@media(max-width:640px){.encyclopedia-course .animal-picker{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* All encyclopedia cards share one photo frame and one label row. */
+.encyclopedia-course .animal-picker{grid-auto-rows:1fr}
+.encyclopedia-course .animal-picker button{min-width:0;width:100%;display:flex;flex-direction:column;align-items:stretch}
+.encyclopedia-course .animal-picker button>span:last-child{display:block;line-height:1.6;min-height:1.6em;white-space:nowrap}
+.encyclopedia-course .choices button{min-width:0}
