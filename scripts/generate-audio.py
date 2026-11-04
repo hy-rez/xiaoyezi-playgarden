@@ -23,6 +23,8 @@ texts.update({
 texts.update(json.loads((root/'scripts/animal-narration.json').read_text()))
 texts.update(json.loads((root/'scripts/color-narration.json').read_text()))
 texts.update(json.loads((root/'scripts/encyclopedia-narration.json').read_text()))
+for course in ('shapes','body','numbers'):
+ texts.update(json.loads((root/f'scripts/{course}-narration.json').read_text()))
 texts['correct']='太棒了！你找到了！'
 parser=argparse.ArgumentParser()
 parser.add_argument('names',nargs='*',help='Only regenerate these audio IDs; omit to regenerate all.')
