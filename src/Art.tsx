@@ -1,3 +1,4 @@
+import {BodyCover} from './BodyCover';
 import {BodyPhotoArt} from './BodyPhotoArt';
 import {FoundationArt} from './FoundationArt';
 import {EncyclopediaCover} from './EncyclopediaCover';
@@ -10,6 +11,7 @@ import {extraAnimalLabels} from './ExtraAnimalArt';
 import {AnimalArt,animalNames,type AnimalName} from './AnimalArt';
 import type {Art as ArtName} from './types';
 export function Art({name,className='',loading='eager'}:{name:ArtName;className?:string;loading?:'eager'|'lazy'}) {
+if(name==='body-cover')return <BodyCover className={className}/>;
 if(name.startsWith('body-'))return <BodyPhotoArt key={name} name={name} className={className} loading={loading}/>;
 if(/^(shapes|shape|object|body|numbers|digit|count)-/.test(name))return <FoundationArt name={name as import('./types').FoundationArt} className={className}/>;
 if(encyclopediaPhoto(name))return <PhotoArt key={name} name={name} className={className} loading={loading}/>;

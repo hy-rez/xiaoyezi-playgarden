@@ -22,12 +22,13 @@ describe('基础认知',()=>{
 });
 
 describe('身体真实照片',()=>{
- it('介绍、答题和封面均使用本地照片，保留来源与许可',async()=>{
+ it('介绍和答题使用本地照片，封面使用插画，保留来源与许可',async()=>{
   const sources=JSON.parse(readFileSync('public/images/body/sources.json','utf8'));
   expect(sources).toHaveLength(19);
   for(const source of sources){expect(readFileSync('public/images/body/'+source.file).length).toBeGreaterThan(1000);expect(source.creator).toBeTruthy();expect(source.licenseUrl).toBeTruthy();expect(source.page).toContain('commons.wikimedia.org')}
   const {default:lesson}=await courses.find(c=>c.id==='body')!.load();if(lesson.kind!=='interactive')throw Error('课程类型');
-  for(const name of [lesson.sticker,...lesson.pages.map(p=>p.art),...lesson.questions.flatMap(q=>q.options.map(o=>o.art))]){
+  const cover=renderToStaticMarkup(createElement(Art,{name:lesson.sticker}));expect(cover).toContain('<svg');expect(cover).not.toContain('<img');
+  for(const name of [...lesson.pages.map(p=>p.art),...lesson.questions.flatMap(q=>q.options.map(o=>o.art))]){
    const markup=renderToStaticMarkup(createElement(Art,{name}));expect(markup).toContain('<img');expect(markup).toContain('images/body/body-');expect(markup).not.toContain('<svg');
   }
   expect(lesson.questions.every(q=>!q.prompt.includes('标出'))).toBe(true);

@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {bodyPhotos} from './bodyPhotos';
 export const bodyPhotoNames=bodyPhotos.map(photo=>photo.name);
 export function BodyPhotoArt({name,className='',loading='eager'}:{name:string;className?:string;loading?:'eager'|'lazy'}){
- const n=name==='body-cover'?7:Number(name.slice(5));
+ const n=Number(name.slice(5));
  const photo=bodyPhotos[n-1];
  const label=photo.name;
  const [failed,setFailed]=useState(false);

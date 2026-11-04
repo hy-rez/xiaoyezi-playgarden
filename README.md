@@ -44,7 +44,7 @@ npm run build
 
 新增认识形状（10张卡、20题，含半圆形、菱形、梯形、心形）、认识身体（19张卡、38题）、数字与数量（1～20，20张卡、40题，每个数字配不同物品）。每轮随机六题，支持点选浏览、随时找一找和贴纸奖励。互动课程可配置 `library: {label: "形状"}` 启用通用选择列表和列表返回按钮。新增旁白分别维护于 scripts/shapes-narration.json、body-narration.json、numbers-narration.json。
 
-认识身体的封面、19张介绍卡、测试选项与贴纸使用 Wikimedia Commons 真实照片，保存在 `public/images/body/`，完整等比展示。作者、来源和许可见该目录的 `sources.json` 与 `credits.html`，课程底部提供入口。运行 `python3 scripts/body-credits.py` 可重建署名页。
+认识身体的首页封面、课程入口封面和贴纸使用统一风格的人物插画；19张介绍卡与测试选项使用 Wikimedia Commons 真实照片，保存在 `public/images/body/`，完整等比展示。作者、来源和许可见该目录的 `sources.json` 与 `credits.html`，课程底部提供入口。运行 `python3 scripts/body-credits.py` 可重建署名页。
 
 身体部位包括眼睛、耳朵、鼻子、嘴巴、手、脚、头、肚子、头发、眉毛、牙齿、舌头、手臂、膝盖、小腿、大腿、手指、脖子、肩膀。每个部位含介绍、照片辨认题及功能或位置题，每轮随机六题。
 
