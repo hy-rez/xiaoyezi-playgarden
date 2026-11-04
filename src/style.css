@@ -7,3 +7,8 @@
 .animal-sound-button{display:block;width:100%;padding:0;background:transparent!important;font-weight:400}.sound-hint{display:flex;gap:8px;align-items:center;justify-content:center;font-size:14px;color:#49664d;padding:8px 4px 14px}.sound-note{font-size:13px;color:#6e7966;margin:8px auto 14px}.sound-note a{text-decoration:underline;text-underline-offset:4px}
 
 .listen-prompt{display:flex;align-items:center;justify-content:center;gap:12px;margin:18px auto;color:#49664d;min-height:64px}.listen-prompt p{margin:0;font-size:16px}.sound-quiz .choices button:disabled:not(.chosen){opacity:1}.sound-quiz .choices button:disabled:not(.chosen)>span{opacity:.6}
+
+/* Keep the learning colours accurate after an answer locks the choices. */
+.color-course .choices button:disabled{opacity:1;cursor:default}
+.color-library section{margin:32px auto}.color-library h2{font-size:22px}.color-library .animal-picker{margin-top:14px}
+.lesson-back{display:flex;justify-content:flex-start;margin:0 0 16px}.lesson-back button,.lesson-back a.button{background:transparent;padding:10px 12px;min-height:56px;font-size:16px}.lesson-back button:hover,.lesson-back a.button:hover{background:#e3e7d7}.sleep .lesson-back a.button,.sleep .lesson-back button{background:transparent}.sleep .lesson-back button:hover,.sleep .lesson-back a.button:hover{background:#3a4c54}
