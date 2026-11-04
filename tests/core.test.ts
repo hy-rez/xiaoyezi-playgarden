@@ -82,19 +82,25 @@ describe('听声音猜动物',()=>{
 });
 
 import encyclopediaLesson from '../src/courses/encyclopedia';
-import {encyclopedia} from '../src/courses/encyclopedia/catalog';
+import {encyclopedia,encyclopediaCategories} from '../src/courses/encyclopedia/catalog';
 describe('认识百科',()=>{
+ it('五个分类完整覆盖150张卡片，列表顺序与介绍翻页顺序一致',()=>{
+  expect(encyclopediaCategories.map(category=>encyclopedia.filter(p=>p.category===category).length)).toEqual([30,30,30,30,30]);
+  const grouped=encyclopediaCategories.flatMap(category=>encyclopedia.filter(p=>p.category===category));
+  expect(grouped.map(p=>'photo-'+p.id)).toEqual(encyclopediaLesson.pages.map(p=>p.art));
+  expect(new Set(grouped.map(p=>p.id)).size).toBe(150);
+ });
  it('真实照片、来源许可、中文语音和题目一一对应',async()=>{
   const entry=courses.find(c=>c.id==='encyclopedia')!;
   expect(entry.category).toBe('常识认知');
   expect((await entry.load()).default).toBe(encyclopediaLesson);
   const sources=JSON.parse(readFileSync('public/images/encyclopedia/sources.json','utf8'));
   const transcripts=JSON.parse(readFileSync('public/audio/transcripts.json','utf8'));
-  expect(encyclopediaLesson.pages).toHaveLength(50);
-  expect(sources).toHaveLength(50);
-  expect(new Set(sources.map((s:{sha256:string})=>s.sha256)).size).toBe(50);
-  expect(encyclopediaLesson.questions).toHaveLength(50);
-  expect(new Set(encyclopediaLesson.pages.map(p=>p.art)).size).toBe(50);
+  expect(encyclopediaLesson.pages).toHaveLength(150);
+  expect(sources).toHaveLength(150);
+  expect(new Set(sources.map((s:{sha256:string})=>s.sha256)).size).toBe(150);
+  expect(encyclopediaLesson.questions).toHaveLength(150);
+  expect(new Set(encyclopediaLesson.pages.map(p=>p.art)).size).toBe(150);
   expect(new Set(sources.map((s:{id:string})=>s.id))).toEqual(new Set(encyclopedia.map(p=>p.id)));
   for(const [i,page] of encyclopediaLesson.pages.entries()){
    const item=encyclopedia[i];

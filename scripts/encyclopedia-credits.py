@@ -5,7 +5,8 @@ from pathlib import Path
 
 folder = Path(__file__).resolve().parents[1] / 'public/images/encyclopedia'
 sources = json.loads((folder / 'sources.json').read_text())
-e = html.escape
+def e(value):
+    return html.escape(" ".join(value.split()))
 sections = []
 for source in sources:
     sections.append(
