@@ -16,7 +16,9 @@ export function Cow(){return <g>
  <path d="M139 145 C137 107 160 90 197 90 C237 89 262 109 261 147 L258 175 C249 201 224 210 200 210 Q156 209 141 179Z" fill={coat}/>
  <path d="M146 113 C152 98 165 93 177 99 Q194 111 186 128 Q181 141 167 148 L145 143Z" fill={spot}/>
  <ellipse cx="176" cy="141" rx="6.2" ry="7" fill={coat}/><Eye x={176} y={141} r={4.3}/><Eye x={224} y={141}/>
+<path d="M160 72 Q164 82 165 91 M240 72 Q236 82 235 91" stroke="#b59c72" strokeWidth="1.5" fill="none"/>
  <ellipse cx="200" cy="180" rx="58" ry="31" fill={rose}/>
+<path d="M174 165 Q179 163 183 165 M217 165 Q222 163 226 165" stroke="#ecc3ae" strokeWidth="1.8" fill="none"/>
  <ellipse cx="178" cy="177" rx="6.5" ry="9" fill="#946c62"/><ellipse cx="222" cy="177" rx="6.5" ry="9" fill="#946c62"/>
  <path d="M188 194 Q200 205 212 194" fill="none" stroke="#59654f" strokeWidth="2.6" strokeLinecap="round"/>
  <path d="M166 160 Q173 156 181 158" stroke="#ebc1ae" strokeWidth="3" fill="none" strokeLinecap="round"/>

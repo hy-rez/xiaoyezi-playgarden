@@ -7,9 +7,11 @@ export function Turtle(){return <g>
  <path d="M126 222 C128 174 152 140 191 141 C232 138 265 174 270 222 Q204 242 126 222Z" fill="#729169"/>
  <path d="M134 214 C139 173 157 149 192 149 Q239 148 259 210 Q204 226 134 214Z" fill="#86a174"/>
  <path d="M178 153 Q167 172 166 191 Q179 212 198 220 Q219 211 234 191 Q231 171 218 153 M166 191 Q147 188 133 199 M234 191 Q251 188 264 200" stroke="#b8ca92" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+<path d="M149 227 l-1 7 M172 232 v6 M198 234 v6 M223 232 v6 M247 228 l1 7" stroke="#a0b582" strokeWidth="1.3"/>
  <path d="M127 222 Q200 241 269 222 L268 229 Q202 248 127 229Z" fill="#607f5c"/>
  <path d="M145 238 C134 244 133 255 145 261 Q156 265 167 257 L174 244 M224 242 Q224 256 238 261 Q249 264 257 256 L252 241" fill="#a6b986"/>
  <path d="M142 254 l-2 5 M150 257 v5 M240 257 v5 M248 255 l2 4" stroke="#6f895b" strokeWidth="1.7"/>
+<ellipse cx="307" cy="214" rx="1.2" ry="1" fill="#708953"/>
  <Eye x={298} y={208} r={4}/><path d="M298 226 Q305 226 311 221" stroke="#59734f" strokeWidth="2" fill="none" strokeLinecap="round"/>
  </g>}
 export function Frog(){return <g>
@@ -23,6 +25,7 @@ export function Frog(){return <g>
  <ellipse cx="159" cy="117" rx="17" ry="19" fill="#fbf3d7"/><ellipse cx="241" cy="117" rx="17" ry="19" fill="#fbf3d7"/>
  <Eye x={160} y={117} r={5}/><Eye x={240} y={117} r={5}/>
  <path d="M158 161 Q200 188 242 161" stroke="#577542" strokeWidth="3" fill="none" strokeLinecap="round"/>
+<path d="M116 210 Q119 201 129 201 M284 210 Q281 201 271 201" stroke="#7a985e" strokeWidth="1.7" fill="none"/><g fill="#7f9d61"><ellipse cx="143" cy="151" rx="3" ry="2"/><ellipse cx="257" cy="151" rx="3" ry="2"/></g>
  <circle cx="191" cy="147" r="1.7" fill="#68854f"/><circle cx="209" cy="147" r="1.7" fill="#68854f"/>
  {/* Forearms bend at the elbow, meeting small palms, rather than straight sticks. */}
  <path d="M161 195 C150 201 139 212 141 223 Q143 231 151 238 L159 235 Q151 224 153 219 L174 204Z M239 195 C250 201 261 212 259 223 Q257 231 249 238 L241 235 Q249 224 247 219 L226 204Z" fill="#7b9a60"/>
