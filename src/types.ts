@@ -1,8 +1,9 @@
+import type {ThinkingArtName} from './thinkingContent';
 import type {EncyclopediaArt} from './courses/encyclopedia/catalog';
 import type {BalloonArt,ColorObjectArt,SingleColorArtName} from './colorContent';
 import type {AnimalName} from './AnimalArt';
 export type FoundationArt = `count-${number}-${number}` | `${'shapes'|'shape'|'object'|'body'|'numbers'|'digit'|'count'}-${number}` | `${'shapes'|'body'|'numbers'}-cover`;
-export type Art = FoundationArt| 'encyclopedia-cover'|EncyclopediaArt|SingleColorArtName|BalloonArt|ColorObjectArt|AnimalName|'red-balloon'|'yellow-balloon'|'blue-balloon'|'color-balloons'|'cat'|'dog'|'cow'|'rabbit'|'blocks'|'ball'|'book'|'box'|'shelf'|'basket'|'moon'|'pond'|'hill'|'home';
+export type Art = ThinkingArtName|FoundationArt| 'encyclopedia-cover'|EncyclopediaArt|SingleColorArtName|BalloonArt|ColorObjectArt|AnimalName|'red-balloon'|'yellow-balloon'|'blue-balloon'|'color-balloons'|'cat'|'dog'|'cow'|'rabbit'|'blocks'|'ball'|'book'|'box'|'shelf'|'basket'|'moon'|'pond'|'hill'|'home';
 export type Page = {title:string;text:string;art:Art;audio:string;sound?:string;soundNote?:string};
 export type Question = {prompt:string;audio:string;options:{label:string;art:Art}[];answer:number;difficulty?:1|2|3};
 export type Lesson = {kind:'interactive';mode?:'sound-quiz';quizSize?:number;library?:{label:string};pages:Page[];questions:Question[];sticker:Art}|{kind:'storybook';pages:Page[]}|{kind:'bedtime';audio:string;text:string;art:Art};

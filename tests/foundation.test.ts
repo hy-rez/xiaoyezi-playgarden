@@ -8,11 +8,11 @@ import {sampleQuestions} from '../src/quiz';
 import {Art} from '../src/Art';
 import {NumberArt} from '../src/NumberArt';
 describe('基础认知',()=>{
- for(const [id,size] of [['shapes',10],['body',19],['numbers',20]] as const)it(id+'内容与抽题',async()=>{
+ for(const [id,size] of [['shapes',10],['body',19],['numbers',20],['compare',4],['positions',8],['sorting',36]] as const)it(id+'内容与抽题',async()=>{
  const {default:lesson}=await courses.find(c=>c.id===id)!.load();if(lesson.kind!=='interactive')throw Error('课程类型');
- expect(lesson.pages).toHaveLength(size);expect(lesson.questions).toHaveLength(size*2);
+ expect(lesson.pages).toHaveLength(size);expect(lesson.questions).toHaveLength(id==='compare'?16:size*2);
  const original=JSON.stringify(lesson.questions);const round=sampleQuestions(lesson.questions,6);expect(round).toHaveLength(6);expect(new Set(round.map(q=>q.audio)).size).toBe(6);expect(JSON.stringify(lesson.questions)).toBe(original);
- expect(lesson.questions.filter(q=>q.answer===0)).toHaveLength(size);
+ expect(lesson.questions.filter(q=>q.answer===0)).toHaveLength(lesson.questions.length/2);
  const text=JSON.parse(readFileSync('public/audio/transcripts.json','utf8'));
  for(const p of lesson.pages)expect(text[p.audio]).toContain(p.text);
  for(const q of lesson.questions){expect(text[q.audio]).toBe(q.prompt);expect(q.options[0].art).not.toBe(q.options[1].art)}
