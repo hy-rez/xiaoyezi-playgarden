@@ -13,6 +13,7 @@ export const courses:Course[]=[
 {id:'daily',title:'认识日常用品',category:'常识认知',topic:'日常用品',age:[24,48],cover:'daily-cover',description:'看真实照片，认识4组48种日常用品',color:'sage',load:()=>import('./daily')},
 {id:'emotions',title:'认识情绪',category:'常识认知',topic:'情绪',age:[24,48],cover:'emotion-cover',description:'看看6种表情，学着说出自己的感受',color:'peach',load:()=>import('./emotions')},
 {id:'weather',title:'四季与天气',category:'常识认知',topic:'四季天气',age:[24,48],cover:'weather-cover',description:'看四季变化，认识6种天气和生活准备',color:'sand',load:()=>import('./weather')},
+{id:'life-sounds',title:'生活中的声音',category:'常识认知',topic:'生活声音',age:[24,48],cover:'life-cover',description:'听30种真实声音，发现日常、自然和乐器的声音',color:'sage',load:()=>import('./life-sounds')},
 {id:'tidy',title:'玩具回家啦',category:'生活技能',topic:'整理',age:[18,42],cover:'blocks',description:'帮玩具找到自己的小家',color:'peach',load:()=>import('./tidy')},
 {id:'storybook',title:'小兔找月亮',category:'故事天地',topic:'原创童话',age:[18,60],cover:'rabbit',description:'翻开绘本，跟小兔一起出发',color:'sand',load:()=>import('./storybook')},
 {id:'bedtime',title:'小兔找月亮',category:'睡前故事',topic:'晚安故事',age:[18,60],cover:'moon',description:'闭上眼睛，听一个轻轻的故事',color:'night',load:()=>import('./bedtime')},
