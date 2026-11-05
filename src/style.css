@@ -41,3 +41,7 @@
 .encyclopedia-library h2 small{font:400 14px/1.6 'PingFang SC','Microsoft YaHei',sans-serif;color:#6e7966}
 .encyclopedia-library .animal-picker{margin-top:14px}
 .sorting-library{margin:28px 0}.sorting-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.sorting-tabs button{min-width:0;min-height:66px;flex-direction:column;gap:0;padding:10px 6px;font-size:16px;line-height:1.5;background:#e5e8da}.sorting-tabs button small{font-size:12px;font-weight:400}.sorting-tabs button[aria-pressed=true]{background:#4b6954;color:#fff9e9}.sorting-library h2{font-size:22px;margin:26px 0 16px}.sorting-library h2 small{display:block;font:400 14px/1.6 'PingFang SC','Microsoft YaHei',sans-serif;color:#74816b;margin-top:4px}.sorting-library .animal-picker{margin-top:0;grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px}@media(max-width:640px){.sorting-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.sorting-tabs button{font-size:15px}.sorting-library .animal-picker{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.grouped-library .animal-picker[data-count="4"]{grid-template-columns:repeat(2,minmax(0,1fr))}.emotion-course .animal-picker{grid-template-columns:repeat(3,minmax(0,1fr));max-width:760px}@media(max-width:640px){.emotion-course .animal-picker{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.grouped-library .sorting-tabs{grid-template-columns:repeat(var(--library-columns),minmax(0,1fr))}@media(max-width:640px){.grouped-library .sorting-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}

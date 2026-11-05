@@ -8,7 +8,7 @@ import {sampleQuestions} from '../src/quiz';
 import {Art} from '../src/Art';
 import {NumberArt} from '../src/NumberArt';
 describe('基础认知',()=>{
- for(const [id,size] of [['shapes',10],['body',19],['numbers',20],['compare',4],['positions',8],['sorting',36]] as const)it(id+'内容与抽题',async()=>{
+ for(const [id,size] of [['shapes',10],['body',19],['numbers',20],['compare',4],['positions',8],['sorting',36],['daily',48],['emotions',6],['weather',10]] as const)it(id+'内容与抽题',async()=>{
  const {default:lesson}=await courses.find(c=>c.id===id)!.load();if(lesson.kind!=='interactive')throw Error('课程类型');
  expect(lesson.pages).toHaveLength(size);expect(lesson.questions).toHaveLength(id==='compare'?16:size*2);
  const original=JSON.stringify(lesson.questions);const round=sampleQuestions(lesson.questions,6);expect(round).toHaveLength(6);expect(new Set(round.map(q=>q.audio)).size).toBe(6);expect(JSON.stringify(lesson.questions)).toBe(original);
